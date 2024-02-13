@@ -1,6 +1,7 @@
 <?php
 require('./includes/nav.inc.php');
 
+
 // Provera da li je prosleđen article_id u URL parametru
 if(isset($_GET['id'])) {
   $article_id = $_GET['id'];

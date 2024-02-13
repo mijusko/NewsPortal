@@ -19,7 +19,9 @@ exit();
   $result = mysqli_query($con, $sql);
  
   if($result) {
-    alert("Deactivated Article");
+    alert("Vest je u draft stanju ! ");
+    ob_start();
+error_reporting(0);
     header("Location: {$_SERVER['HTTP_REFERER']}");
 exit();
   }

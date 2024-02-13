@@ -1,5 +1,5 @@
 <?php
-  require('./includes/nav.inc.php');  
+  require('./includes/nav.inc.urednik.php');  
 ?>
 
 <script>

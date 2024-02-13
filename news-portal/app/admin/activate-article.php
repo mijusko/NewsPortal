@@ -21,7 +21,7 @@ exit();
   $result = mysqli_query($con, $sql);
  
   if($result) {
-    alert("Activated Article");
+    alert("Vest je objavljena !");
     header("Location: {$_SERVER['HTTP_REFERER']}");
 exit();
 

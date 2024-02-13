@@ -1,5 +1,11 @@
 <?php
   require('./includes/nav.inc.php');
+
+  // Check if the user is an admin
+if(isset($_SESSION['ADMIN_ID']) && $_SESSION['ADMIN_ID'] != 1) { 
+  alert("Pristup odbijen! Niste Glavni Urednik !");
+  redirect('./urednik.php');
+}
   
   if (isset($_POST['submit'])) { 
     

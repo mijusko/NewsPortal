@@ -18,7 +18,7 @@ function addToAdmin(id) {
 }
 
 function removeFromAdmin(id) {
-  if (confirm("Da li ste sigurni da zelite da ovog urednika?")) {
+  if (confirm("Da li ste sigurni da zelite da uklonite ovog urednika?")) {
     var url = "./remove-urednik.php?id=" + id;
     document.location = url;
   }

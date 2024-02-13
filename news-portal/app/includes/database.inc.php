@@ -2,19 +2,19 @@
 
 // Development Connection
 // Server name or IP Address
-$host = "localhost:3307";
-//$host = "db";
+//$host = "localhost:3307";
+$host = "db";
 
 // MySQL Username
-$user = "root";
-//$user = "docker";
+//$user = "root";
+$user = "docker";
 
 // MySQL Password
-$pass = "";
-//$pass = "root";
+//$pass = "";
+$pass = "root";
 
 // Default Database name
-$db = "db_news_rezerva_2";
+$db = "db_news";
 
 // Creating a connection to the DataBase
 $con = mysqli_connect($host,$user,$pass,$db);
