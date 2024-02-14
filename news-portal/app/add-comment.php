@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('includes\database.inc.php');
+require('./includes/database.inc.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $article_id = $_POST['article_id'];
