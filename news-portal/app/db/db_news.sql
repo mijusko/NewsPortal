@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3307
--- Generation Time: Feb 10, 2024 at 02:35 PM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- Host: db:3306
+-- Generation Time: Feb 14, 2024 at 03:18 PM
+-- Server version: 8.3.0
+-- PHP Version: 8.2.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -19,20 +19,19 @@ SET time_zone = "+00:00";
 
 --
 -- Database: `db_news`
-USE db_news;
+--
 
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `admin`
 --
 
-
-
 CREATE TABLE `admin` (
-  `admin_id` int(11) NOT NULL,
-  `admin_email` varchar(35) NOT NULL,
-  `admin_password` varchar(100) NOT NULL,
-  `category_id` int(11) DEFAULT NULL
+  `admin_id` int NOT NULL,
+  `admin_email` varchar(35) COLLATE utf8mb4_general_ci NOT NULL,
+  `admin_password` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `category_id` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -41,10 +40,10 @@ CREATE TABLE `admin` (
 
 INSERT INTO `admin` (`admin_id`, `admin_email`, `admin_password`, `category_id`) VALUES
 (1, 'admin@admin.com', '$2y$10$b3GAX6.Pd6054RRQ8C9se.zfOhTljRkduBfAKWFrmtdKwj02aSTuq', NULL),
-(2, 'bogdan@bogdan.com', '$2y$10$fMNxLgr5HvTG0U3ymBmjn.DKbJd9pV2nkEqx0wDrF7DWuOhZexwb2', 1),
 (4, 'dejan@dejan.com', '$2y$10$Fk2//5Pe.RF7LVK/THA9X.k9fNBJFwcC8EIeq2Ta7Z70KQ.q5gaE.', 2),
 (6, 'goran@goran.com', '$2y$10$7UrXvlW/s4QPJfkFCqFfEezqRojvyDB52WeVnE5oB3SsGK5EA5aWu', 3),
-(8, 'nenad@nenad.com', '$2y$10$AekxNURCNteNMlSAusr22Om9f7MDH6dIxZVhoxdGIMXNgYyG3EhJ6', 4);
+(8, 'nenad@nenad.com', '$2y$10$AekxNURCNteNMlSAusr22Om9f7MDH6dIxZVhoxdGIMXNgYyG3EhJ6', 4),
+(9, 'bogdan@bogdan.com', '$2y$10$fMNxLgr5HvTG0U3ymBmjn.DKbJd9pV2nkEqx0wDrF7DWuOhZexwb2', 1);
 
 -- --------------------------------------------------------
 
@@ -53,18 +52,18 @@ INSERT INTO `admin` (`admin_id`, `admin_email`, `admin_password`, `category_id`)
 --
 
 CREATE TABLE `article` (
-  `article_id` int(11) NOT NULL,
-  `category_id` int(11) NOT NULL,
-  `author_id` int(11) NOT NULL,
-  `article_title` varchar(250) NOT NULL,
-  `article_image` varchar(200) NOT NULL,
-  `article_description` text NOT NULL,
+  `article_id` int NOT NULL,
+  `category_id` int NOT NULL,
+  `author_id` int NOT NULL,
+  `article_title` varchar(250) COLLATE utf8mb4_general_ci NOT NULL,
+  `article_image` varchar(200) COLLATE utf8mb4_general_ci NOT NULL,
+  `article_description` text COLLATE utf8mb4_general_ci NOT NULL,
   `article_date` date NOT NULL,
-  `article_trend` tinyint(4) NOT NULL,
-  `article_active` tinyint(4) NOT NULL,
-  `likes` int(11) DEFAULT 0,
-  `article_hashtags` varchar(255) NOT NULL DEFAULT '',
-  `dislikes` int(11) DEFAULT 0
+  `article_trend` tinyint NOT NULL,
+  `article_active` tinyint NOT NULL,
+  `likes` int DEFAULT '0',
+  `article_hashtags` varchar(255) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
+  `dislikes` int DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -87,9 +86,9 @@ INSERT INTO `article` (`article_id`, `category_id`, `author_id`, `article_title`
 --
 
 CREATE TABLE `article_hashtag` (
-  `id` int(11) NOT NULL,
-  `article_id` int(11) NOT NULL,
-  `hashtag_name` varchar(255) NOT NULL
+  `id` int NOT NULL,
+  `article_id` int NOT NULL,
+  `hashtag_name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -126,11 +125,11 @@ INSERT INTO `article_hashtag` (`id`, `article_id`, `hashtag_name`) VALUES
 --
 
 CREATE TABLE `author` (
-  `author_id` int(11) NOT NULL,
-  `author_name` varchar(35) NOT NULL,
-  `author_password` varchar(100) NOT NULL,
-  `author_email` varchar(45) NOT NULL,
-  `category_id` int(11) DEFAULT NULL
+  `author_id` int NOT NULL,
+  `author_name` varchar(35) COLLATE utf8mb4_general_ci NOT NULL,
+  `author_password` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `author_email` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
+  `category_id` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -138,14 +137,14 @@ CREATE TABLE `author` (
 --
 
 INSERT INTO `author` (`author_id`, `author_name`, `author_password`, `author_email`, `category_id`) VALUES
-(1, 'Aleksa', '$2y$10$p39QnNKlva.HpypaYdD2.uj1MLMhmA/lVLXdsYXz/fVqMImtoUrOm', 'aleksa@aleksa.com', 1),
-(2, 'Bogdan', '$2y$10$fMNxLgr5HvTG0U3ymBmjn.DKbJd9pV2nkEqx0wDrF7DWuOhZexwb2', 'bogdan@bogdan.com', 1),
 (3, 'Aleksandra', '$2y$10$ZLCAJZHkpZuDkCf9Y5EaL.yKw76bibZVbDJ/esB3YP60McD9pZg5W', 'aleksandra@aleksandra.com', 2),
 (4, 'Dejan', '$2y$10$Fk2//5Pe.RF7LVK/THA9X.k9fNBJFwcC8EIeq2Ta7Z70KQ.q5gaE.', 'dejan@dejan.com', 2),
 (5, 'Milan', '$2y$10$vb3GC0ztqILXvGdlSMNA/eYoC7p7UepNqEvaXpx00RNJZ9zYFpRee', 'milan@milan.com', 3),
 (6, 'Goran', '$2y$10$7UrXvlW/s4QPJfkFCqFfEezqRojvyDB52WeVnE5oB3SsGK5EA5aWu', 'goran@goran.com', 3),
 (7, 'Petar', '$2y$10$oRAth1pHAPmaW6OFaM1nau1NRd7tYPCYbgxloRPeVmXbNZ0fXAIO.', 'petar@petar.com', 4),
-(8, 'Nenad', '$2y$10$AekxNURCNteNMlSAusr22Om9f7MDH6dIxZVhoxdGIMXNgYyG3EhJ6', 'nenad@nenad.com', 4);
+(8, 'Nenad', '$2y$10$AekxNURCNteNMlSAusr22Om9f7MDH6dIxZVhoxdGIMXNgYyG3EhJ6', 'nenad@nenad.com', 4),
+(9, 'Bogdan', '$2y$10$fMNxLgr5HvTG0U3ymBmjn.DKbJd9pV2nkEqx0wDrF7DWuOhZexwb2', 'bogdan@bogdan.com', 1),
+(10, 'Aleksa', '$2y$10$p39QnNKlva.HpypaYdD2.uj1MLMhmA/lVLXdsYXz/fVqMImtoUrOm', 'aleksa@aleksa.com', 1);
 
 -- --------------------------------------------------------
 
@@ -154,9 +153,9 @@ INSERT INTO `author` (`author_id`, `author_name`, `author_password`, `author_ema
 --
 
 CREATE TABLE `bookmark` (
-  `bookmark_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `article_id` int(11) NOT NULL
+  `bookmark_id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `article_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -173,11 +172,11 @@ INSERT INTO `bookmark` (`bookmark_id`, `user_id`, `article_id`) VALUES
 --
 
 CREATE TABLE `category` (
-  `category_id` int(11) NOT NULL,
-  `category_name` varchar(45) NOT NULL,
-  `category_color` varchar(35) NOT NULL,
-  `category_image` varchar(250) NOT NULL,
-  `category_description` varchar(350) NOT NULL
+  `category_id` int NOT NULL,
+  `category_name` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
+  `category_color` varchar(35) COLLATE utf8mb4_general_ci NOT NULL,
+  `category_image` varchar(250) COLLATE utf8mb4_general_ci NOT NULL,
+  `category_description` varchar(350) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -197,13 +196,13 @@ INSERT INTO `category` (`category_id`, `category_name`, `category_color`, `categ
 --
 
 CREATE TABLE `comments` (
-  `comment_id` int(11) NOT NULL,
-  `article_id` int(11) DEFAULT NULL,
-  `user_name` varchar(255) DEFAULT NULL,
-  `comment_text` text DEFAULT NULL,
-  `comment_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `likes` int(11) DEFAULT 0,
-  `dislikes` int(11) DEFAULT 0
+  `comment_id` int NOT NULL,
+  `article_id` int DEFAULT NULL,
+  `user_name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `comment_text` text COLLATE utf8mb4_general_ci,
+  `comment_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `likes` int DEFAULT '0',
+  `dislikes` int DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -220,10 +219,10 @@ INSERT INTO `comments` (`comment_id`, `article_id`, `user_name`, `comment_text`,
 --
 
 CREATE TABLE `user` (
-  `user_id` int(11) NOT NULL,
-  `user_name` varchar(35) NOT NULL,
-  `user_email` varchar(45) NOT NULL,
-  `user_password` varchar(100) NOT NULL
+  `user_id` int NOT NULL,
+  `user_name` varchar(35) COLLATE utf8mb4_general_ci NOT NULL,
+  `user_email` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
+  `user_password` varchar(100) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -231,14 +230,14 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `user_name`, `user_email`, `user_password`) VALUES
-(1, 'Aleksa', 'aleksa@aleksa.com', '$2y$10$p39QnNKlva.HpypaYdD2.uj1MLMhmA/lVLXdsYXz/fVqMImtoUrOm'),
-(2, 'Bogdan', 'bogdan@bogdan.com', '$2y$10$fMNxLgr5HvTG0U3ymBmjn.DKbJd9pV2nkEqx0wDrF7DWuOhZexwb2'),
 (3, 'Aleksandra', 'aleksandra@aleksandra.com', '$2y$10$ZLCAJZHkpZuDkCf9Y5EaL.yKw76bibZVbDJ/esB3YP60McD9pZg5W'),
 (4, 'Dejan', 'dejan@dejan.com', '$2y$10$Fk2//5Pe.RF7LVK/THA9X.k9fNBJFwcC8EIeq2Ta7Z70KQ.q5gaE.'),
 (5, 'Milan', 'milan@milan.com', '$2y$10$vb3GC0ztqILXvGdlSMNA/eYoC7p7UepNqEvaXpx00RNJZ9zYFpRee'),
 (6, 'Goran', 'goran@goran.com', '$2y$10$7UrXvlW/s4QPJfkFCqFfEezqRojvyDB52WeVnE5oB3SsGK5EA5aWu'),
 (7, 'Petar', 'petar@petar.com', '$2y$10$oRAth1pHAPmaW6OFaM1nau1NRd7tYPCYbgxloRPeVmXbNZ0fXAIO.'),
-(8, 'Nenad', 'nenad@nenad.com', '$2y$10$AekxNURCNteNMlSAusr22Om9f7MDH6dIxZVhoxdGIMXNgYyG3EhJ6');
+(8, 'Nenad', 'nenad@nenad.com', '$2y$10$AekxNURCNteNMlSAusr22Om9f7MDH6dIxZVhoxdGIMXNgYyG3EhJ6'),
+(9, 'Bogdan', 'bogdan@bogdan.com', '$2y$10$fMNxLgr5HvTG0U3ymBmjn.DKbJd9pV2nkEqx0wDrF7DWuOhZexwb2'),
+(10, 'Aleksa', 'aleksa@aleksa.com', '$2y$10$p39QnNKlva.HpypaYdD2.uj1MLMhmA/lVLXdsYXz/fVqMImtoUrOm');
 
 --
 -- Indexes for dumped tables
@@ -304,49 +303,49 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `admin_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `article`
 --
 ALTER TABLE `article`
-  MODIFY `article_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `article_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `article_hashtag`
 --
 ALTER TABLE `article_hashtag`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `author`
 --
 ALTER TABLE `author`
-  MODIFY `author_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `author_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `bookmark`
 --
 ALTER TABLE `bookmark`
-  MODIFY `bookmark_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `bookmark_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `category_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `comment_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `user_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables
